@@ -9,8 +9,7 @@ import (
 	"net/http"
 	"os"
 
-	_ "github.com/mattn/go-sqlite3"
-	//	_ "modernc.org/sqlite
+	_ "modernc.org/sqlite"
 )
 
 func main() {
@@ -40,7 +39,7 @@ type Server struct {
 
 func NewServer(logger Log, templatesPath, dbName string) (*Server, error) {
 
-	db, err := sql.Open("sqlite3", dbName)
+	db, err := sql.Open("sqlite", dbName)
 	if err != nil {
 		return nil, err
 	}
