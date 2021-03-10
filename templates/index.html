@@ -11,28 +11,31 @@
 <body>
 <div id="app">
 <label>Lookup word:
-<input type="text" v-model="word" list="words" autofocus>
+<input type="text" v-model="word" v-on:change="signalChange" list="words" autofocus>
 </label>
 <datalist id="words">
 <option v-for="word in words">${word}</option>
 </datalist>
 </div>
 <script>
-const app = new Vue({
-el:'#app',
-delimiters: ['${', '}'],
-data() {
-return {
-word:'',
-words:[]
-}
-},
-created() {
-fetch('/?q=water')
-.then(res => res.json())
-.then(res => { return res })
-}
-})
+	const app = new Vue({
+		el:'#app',
+		delimiters: ['${', '}'],
+		data() {
+			return {
+				word:'',
+				words:[]
+			}
+		},
+		methods: {
+			signalChange(evt){
+				console.log(this.word)
+				fetch('/?q=' + this.word)
+					.then(res => res.json())
+					.then(res => { this.words = res })
+			}
+		}
+	})
 </script>
 </body>
 </html>
