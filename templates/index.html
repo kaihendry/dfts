@@ -9,13 +9,18 @@
 <title>dmenu on the Web</title>
 </head>
 <body>
+<img width="100" src="https://s.natalian.org/2021-03-10/vue.svg">
+<img width="100" src="https://s.natalian.org/2021-03-10/sqlite.svg">
+<img width="100" src="https://s.natalian.org/2021-03-10/go.svg">
 <div id="app">
 <label>Lookup word:
-<input type="text" v-model="word" v-on:change="signalChange" list="words" autofocus>
+<input type="text" v-model="word" v-on:keyup="signalChange" list="words" autofocus>
 </label>
 <datalist id="words">
 <option v-for="word in words">${word}</option>
 </datalist>
+<h1>Words</h1>
+${words.length}
 </div>
 <script>
 	const app = new Vue({
