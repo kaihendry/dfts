@@ -10,12 +10,13 @@
 </head>
 <body>
 <img width="100" src="https://s.natalian.org/2021-03-10/vue.svg">
-<img width="100" src="https://s.natalian.org/2021-03-10/sqlite.svg">
 <img width="100" src="https://s.natalian.org/2021-03-10/go.svg">
+<img width="100" src="https://s.natalian.org/2021-03-10/sqlite.svg">
 <div id="app">
-<label>Lookup word:
-<input type="text" v-model="word" v-on:keyup="signalChange" list="words" autofocus>
+<label>Lookup German word:
+<input type="text" v-model="word" v-on:keyup="signalChange" v-on:change="signalChange" list="words" autofocus>
 </label>
+<p>German was chosen since I feared the UA was autocompleting the words.</p>
 <datalist id="words">
 <option v-for="word in words">${word}</option>
 </datalist>

@@ -62,7 +62,7 @@ func (server *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		server.views.ExecuteTemplate(w, "index.html", nil)
 		return
 	}
-	server.log.Println(query)
+	server.log.Println("Preforming query", query)
 	rows, err := server.db.Query("SELECT word FROM words where \"word\" LIKE ?", query+"%")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
