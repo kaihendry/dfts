@@ -11,7 +11,3 @@ With the Web...
 # TODO
 
 The DOM can't take thousands of options in the datalist. It's slow.
-
-1. Perhaps limit sqlite LIKE query to at least 3 letters maybe
-2. Do not do subsequent queries as letters are appended since there is no point, the UA already has the list to filter.
-3. Do re-query if base 3 letters change

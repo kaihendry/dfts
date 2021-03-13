@@ -14,14 +14,13 @@
 <img width="100" src="https://s.natalian.org/2021-03-10/sqlite.svg">
 <div id="app">
 <label>Lookup German word:
-<input type="text" v-model="word" v-on:keyup="signalChange" v-on:change="signalChange" list="words" autofocus>
+<input type="text" v-model.trim="word" v-on:keyup="signalChange" v-on:change="signalChange" list="words" autofocus>
 </label>
 <p>German was chosen since I feared the UA was autocompleting the words.</p>
 <datalist id="words">
 <option v-for="word in words">${word}</option>
 </datalist>
-<h1>Words</h1>
-${words.length}
+Query: ${query} Results: ${words.length} Time taken: ${fetchtime} ms
 </div>
 <script>
 	const app = new Vue({
@@ -30,15 +29,23 @@ ${words.length}
 		data() {
 			return {
 				word:'',
-				words:[]
+				query:'',
+				words:[],
+				fetchtime: 0
 			}
 		},
 		methods: {
-			signalChange(evt){
+			async signalChange(){
 				console.log(this.word)
-				fetch('/?q=' + this.word)
-					.then(res => res.json())
-					.then(res => { this.words = res })
+				if (this.word.length > 2 && this.word.slice(0,3) != this.query) {
+					this.query = this.word.slice(0,3)
+					console.log("Query", this.query)
+					let time1 = performance.now()
+					let response = await fetch('/?q=' + this.query)
+					this.words = await response.json()
+					let time2 = performance.now()
+					this.fetchtime = time2 - time1
+				}
 			}
 		}
 	})
