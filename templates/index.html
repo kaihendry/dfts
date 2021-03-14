@@ -18,7 +18,7 @@
 </label>
 <p>German was chosen since I feared the UA was autocompleting the words.</p>
 <datalist id="words">
-<option v-for="word in words">${word}</option>
+<option v-for="w in words">${w}</option>
 </datalist>
 Query: ${query} Results: ${words.length} Time taken: ${fetchtime} ms
 </div>
@@ -37,9 +37,8 @@ Query: ${query} Results: ${words.length} Time taken: ${fetchtime} ms
 		methods: {
 			async signalChange(){
 				console.log(this.word)
-				if (this.word.length > 2 && this.word.slice(0,3) != this.query) {
-					this.query = this.word.slice(0,3)
-					console.log("Query", this.query)
+				if (this.word.length > 2 && this.word.slice(0,3).toLowerCase() != this.query) {
+					this.query = this.word.slice(0,3).toLowerCase()
 					let time1 = performance.now()
 					let response = await fetch('/?q=' + this.query)
 					this.words = await response.json()
