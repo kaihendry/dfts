@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	_ "modernc.org/sqlite"
 )
@@ -62,7 +63,7 @@ func (server *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		server.views.ExecuteTemplate(w, "index.html", nil)
 		return
 	}
-	server.log.Println("Preforming query", query)
+	start := time.Now()
 	rows, err := server.db.Query("SELECT word FROM words where \"word\" LIKE ?", query+"%")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -82,6 +83,8 @@ func (server *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	rows.Close()
+	duration := time.Since(start)
+	server.log.Printf("Performed query %q in %v", query, duration)
 
 	server.writeJSON(w, results)
 }
