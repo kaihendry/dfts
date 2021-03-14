@@ -12,6 +12,7 @@ With the Web...
 * https://twitter.com/simonw/status/1369298440895614976
 * https://git.codemadness.nl/jscancer/file/datalist/example.html.html
 * https://projects.verou.me/awesomplete/
+* [My older datalist project](https://github.com/kaihendry/datalist)
 
 # TODO
 
