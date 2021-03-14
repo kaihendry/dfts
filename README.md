@@ -1,6 +1,9 @@
 # Web [dmenu](https://tools.suckless.org/dmenu/)
 
-	dmenu < /usr/share/dict/words
+	curl -O https://raw.githubusercontent.com/kaihendry/dfts/main/german
+	$ wc -l german
+	304736 german
+	dmenu < /usr/share/dict/german
 
 With the Web...
 

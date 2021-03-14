@@ -1,6 +1,6 @@
 #!/bin/bash
 
-words=/usr/share/dict/german
+words=./german
 
 if ! test -s $words
 then
