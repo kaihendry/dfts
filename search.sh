@@ -1,7 +1,14 @@
-# select word, length from words where "word" like "$1%"
-sqlite3 words.sqlite <<HERE
-EXPLAIN QUERY PLAN
+# EXPLAIN QUERY PLAN
+
+
+time sqlite3 words.sqlite <<HERE
 select word from words where "word" like "${1:-for}%"
 HERE
 
-# not using USING INDEX words_index_1 ... why?
+sleep 2
+
+time sqlite3 words.sqlite <<HERE
+SELECT word FROM wordsfts WHERE "word" MATCH "for*" ORDER BY rank;
+HERE
+
+

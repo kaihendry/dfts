@@ -22,3 +22,13 @@ rm -f $DB
 	echo "CREATE INDEX words_index_1 ON words (word);"
 	echo "COMMIT;"
 ) | sqlite3 --batch $DB
+
+(
+	echo "CREATE VIRTUAL TABLE wordsfts USING fts5(word);"
+	echo "BEGIN;"
+	while read w
+	do
+		echo "INSERT INTO wordsfts VALUES (\"$w\");"
+	done < $words
+	echo "COMMIT;"
+) | sqlite3 --batch $DB

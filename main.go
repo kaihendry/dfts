@@ -64,7 +64,7 @@ func (server *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	start := time.Now()
-	rows, err := server.db.Query("SELECT word FROM words where \"word\" LIKE ?", query+"%")
+	rows, err := server.db.Query("SELECT word FROM wordsfts where \"word\" MATCH ?", query+"*")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
